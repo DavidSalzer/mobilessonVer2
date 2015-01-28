@@ -21,9 +21,9 @@
             <tr data-ng-repeat="course in courses">
                 <td>{{course.course.coursename}}</td>
                 <td>
-                    <div class="progress progress-striped active" style="height:8px; margin:5px 0 0 0;">
+                    <div class="progress progress-striped active" style="height:17px; margin:2px 0 0 0;">
                         <div class="progress-bar" style="width: {{course.completedPercent}}%">
-                            <span class="sr-only">{{course.completedPercent}}% Complete</span>
+                            <span class="sr-only" style="color: black;overflow: visible;clip: initial;">{{course.completedPercent}}%</span>
                         </div>
                     </div>
                 </td>
