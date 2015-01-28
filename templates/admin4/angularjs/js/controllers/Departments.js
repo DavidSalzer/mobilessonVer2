@@ -1,14 +1,14 @@
-MetronicApp.controller('departments', ['$rootScope', '$scope', '$state', '$http', function ($rootScope, $scope, $state, $http) {
+MetronicApp.controller('departments', ['$rootScope', '$scope', '$state', 'httpRequest', function ($rootScope, $scope, $state, httpRequest) {
 
+    queryString = '?action=getStatisticsByUnit&unit=all';
 
-    $http.get(domain + '?action=getStatisticsByUnit&unit=all')
-    .success(function (data) {
+    httpRequest.sendRequest('get', queryString)
+    .then(function (data) {
         if (data.status == 'ok') {
-            $scope.statistics = data.data;
+            $timeout(function () {
+                $scope.statistics = data.data;
+            }, 0);
         }
-    })
-    .error(function (data) {
-        console.log(data);
     })
 
 } ])
