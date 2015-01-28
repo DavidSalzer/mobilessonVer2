@@ -108,7 +108,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                     return $ocLazyLoad.load({
                         name: 'MetronicApp',
                         files: [
-                             'js/controllers/Department.js'
+                            '../../../assets/global/plugins/datatables/media/css/jquery.dataTables.min.css',
+                            '../../../assets/global/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css',
+
+                            '../../../assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js',
+
+                            'js/controllers/Department.js'
                         ]
                     });
                 } ]

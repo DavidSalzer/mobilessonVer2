@@ -2,92 +2,93 @@
 <div class="padding-md">
 
     <div class="panel panel-default table-responsive">
-        <div class="panel-heading">
+        <div class="panel-heading" style="min-height: 39px;">
 					{{statistics.general.departmentName}}
             <span class="label label-info pull-right">{{courses.length}} קורסים</span>
         </div>
         <table class="table table-striped" id="responsiveTable">
             <thead>
-                <tr>
-                    <th>קורס</th>
-                    <th>התקדמות</th>
-                    <th>סיימו</th>
-                    <th>בתהליך</th>
-                    <th>לא התחילו</th>
-                    <th>סטטוס</th>
-                </tr>
+            <tr>
+                <th>קורס</th>
+                <th>התקדמות</th>
+                <th>סיימו</th>
+                <th>בתהליך</th>
+                <th>לא התחילו</th>
+                <th>סטטוס</th>
+            </tr>
 			</thead>
             <tbody>
-                <tr data-ng-repeat="course in courses">
-                    <td>{{course.course.coursename}}</td>
-                    <td>
-                        <div class="progress progress-striped active" style="height:8px; margin:5px 0 0 0;">
-                            <div class="progress-bar" style="width: {{course.completedPercent}}%">
-                                <span class="sr-only">{{course.completedPercent}}% Complete</span>
-                            </div>
+            <tr data-ng-repeat="course in courses">
+                <td>{{course.course.coursename}}</td>
+                <td>
+                    <div class="progress progress-striped active" style="height:17px; margin:2px 0 0 0;">
+                        <div class="progress-bar" style="width: {{course.completedPercent}}%">
+                            <span class="sr-only" style="color: black;overflow: visible;clip: initial;">{{course.completedPercent}}%</span>
                         </div>
-                    </td>
-                    <td>{{course.ended}}</td><!--Completed-->
-                    <td>{{course.started}}</td><!--In Progress-->
-                    <td>{{course.employees-course.ended-course.started}}</td><!--Not Yet Started-->
-                    <td><a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#basicModal" data-ng-click="getEmployeesByCourse(course.course.courseid)">פירוט עובדים</a></td>
-                </tr>
+                    </div>
+                </td>
+                <td>{{course.ended}}</td><!--Completed-->
+                <td>{{course.started}}</td><!--In Progress-->
+                <td>{{course.employees-course.ended-course.started}}</td><!--Not Yet Started-->
+                <td><a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#basicModal" data-ng-click="getEmployeesByCourse(course.course.courseid)">פירוט עובדים</a></td>
+            </tr>
 			</tbody>
         </table>
-                    <!--<div class="panel-footer clearfix">
-                                                                                                                                                                        <ul class="pagination pagination-xs m-top-none pull-right">
-                                                                                                                                                                            <li class="disabled"><a href="#">Previous</a></li>
-                                                                                                                                                                            <li class="active"><a href="#">1</a></li>
-                                                                                                                                                                            <li><a href="#">2</a></li>
-                                                                                                                                                                            <li><a href="#">3</a></li>
-                                                                                                                                                                            <li><a href="#">4</a></li>
-                                                                                                                                                                            <li><a href="#">5</a></li>
-                                                                                                                                                                            <li><a href="#">Next</a></li>
-                                                                                                                                                                        </ul>
-                                                                                                                                                                    </div>-->
     </div><!-- /panel -->
 </div><!-- /.padding-md -->
+<!--Modal-->
+<!--employees table-->
 <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">{{courseDetails.courseName}} - {{courseDetails.departmentName}}</h4>
             </div>
             <div class="modal-body">
-
-                <div class="panel panel-default table-responsive">
-                    <div class="panel-heading">
-					Data Table
-                        <span class="label label-info pull-right">790 Items</span>
+                <!-- BEGIN MAIN CONTENT -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                        <div class="portlet box blue-hoki">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-globe"></i>פירוט עובדים
+                                </div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <table class="table table-striped table-bordered table-hover display" id="employeesTable" "">
+                                    <thead>
+                                    <tr>
+                                        <th>מספר עובד</th>
+                                        <th>שם</th>
+                                        <th>מספר ניסיונות</th>
+                                        <th>סטטוס</th>
+                                    </tr>
+					                </thead>
+                                    <tbody>
+                                                                                    <tr>
+                                                                                    <td>Tiger Nixon</td>
+                                                                                    <td>System Architect</td>
+                                                                                    <td>Edinburgh</td>
+                                                                                    <td>61</td>
+                                                                                </tr>
+                                    <tr data-ng-repeat="employee in employees">
+                                        <td>{{employee.id}}</td>
+                                        <td>{{employee.name}}</td>
+                                        <td>{{employee.numAttempts}}</td>
+                                        <td><span class="label label-success">{{employee.status}}</span></td>
+                                    </tr>
+					                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END EXAMPLE TABLE PORTLET-->
                     </div>
-                    <div class="padding-md clearfix">
-                        <table class="table table-striped" id="dataTable">
-                            <thead>
-
-                            <tr role="row">
-                                <th class="sorting ui-state-default" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="No: activate to sort column ascending" style="width: 138px;">
-                                    <div class="DataTables_sort_wrapper">מספר עובד<span class="DataTables_sort_icon css_right ui-icon ui-icon-carat-2-n-s"></span></div></th>
-                                <th class="sorting ui-state-default sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending" style="width: 497px;" aria-sort="descending">
-                                    <div class="DataTables_sort_wrapper">שם<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span></div></th>
-                                <th class="sorting ui-state-default" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 152px;">
-                                    <div class="DataTables_sort_wrapper">מספר ניסיונות<span class="DataTables_sort_icon css_right ui-icon ui-icon-carat-2-n-s"></span></div></th>
-                                <th class="sorting ui-state-default" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 193px;">
-                                    <div class="DataTables_sort_wrapper">סטטוס<span class="DataTables_sort_icon css_right ui-icon ui-icon-carat-2-n-s"></span></div></th>
-                            </tr>
-
-						</thead>
-                            <tbody>
-                            <tr data-ng-repeat="employee in employees">
-                                <th>{{employee.No}}</th>
-                                <th>{{employee.Product}}</th>
-                                <th>{{employee.Price}}</th>
-                                <th><span class="label label-success">{{employee.Status}}</span></th>
-                            </tr>
-						</tbody>
-                        </table>
-                    </div><!-- /.padding-md -->
-                </div><!-- /panel -->
+                </div>
+                <!-- END MAIN CONTENT -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -96,3 +97,15 @@
         </div>
     </div>
 </div>
+
+<!--<script>
+    $(document).ready(function () {
+        $('#employeesTable').DataTable( {
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "../../../assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+        }
+    } );
+    });
+    
+</script>-->

@@ -1,27 +1,7 @@
 MetronicApp.controller('department', ['$rootScope', '$scope', '$state', '$stateParams', '$http', function ($rootScope, $scope, $state, $stateParams, $http) {
     // $('#scroll-to-top').click();
 
-    /*$(function () {
-    $('#dataTable').dataTable({
-    "bJQueryUI": true,
-    "sPaginationType": "full_numbers"
-    });
-    $('#chk-all').click(function()	{
-    if($(this).is(':checked'))	{
-    $('#responsiveTable').find('.chk-row').each(function()	{
-    $(this).prop('checked', true);
-    $(this).parent().parent().parent().addClass('selected');
-    });
-    }
-    else	{
-    $('#responsiveTable').find('.chk-row').each(function()	{
-    $(this).prop('checked' , false);
-    $(this).parent().parent().parent().removeClass('selected');
-    });
-    }
-    });
-    });
-    */
+
     //$scope.departmentId = $stateParams.departmentId;
     $http.get(domain + '?action=getStatisticsByUnit&unit=department&id=' + $stateParams.departmentId)
     .success(function (data) {
@@ -39,28 +19,16 @@ MetronicApp.controller('department', ['$rootScope', '$scope', '$state', '$stateP
         console.log(data);
     })
 
-    $scope.getEmployeesByCourse = function () {
-        $http.get(domain + '?action=getStatisticsByUnit&unit=department&id=' + $stateParams.departmentId)
+    $scope.getEmployeesByCourse = function (courseId) {
+        $http.get(domain + '?action=getStatisticsByUnit&unit=employeesStatus&departmentId=' + $stateParams.departmentId + '&courseId=' + courseId)
     .success(function (data) {
+        console.log(data)
         if (data.status == 'ok') {
-            //$scope.employees = data.data;
-            $scope.employees = [{ "No": "#1001",
-                "Product": "Leather Bag",
-                "Price": "$89",
-                "Quantity": "30",
-                "Sales": "187",
-                "Date": "Oct 08,2013",
-                "Status": "In Stock"
-            },
-            { "No": "#1002",
-                "Product": "Leather Bag",
-                "Price": "$89",
-                "Quantity": "30",
-                "Sales": "187",
-                "Date": "Oct 08,2013",
-                "Status": "In Stock"
-            }]
-            console.log($scope.employees)
+            $scope.courseDetails = data.data.general;
+            $scope.employees = data.data.employees;
+
+            console.log($scope.employees);
+            initTable1();
         }
     })
     .error(function (data) {
@@ -68,4 +36,12 @@ MetronicApp.controller('department', ['$rootScope', '$scope', '$state', '$stateP
     })
     }
 
+    var initTable1 = function () {
+        $('#employeesTable').DataTable({
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "sSwfPath": "../../../assets/global/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+    }
 } ])
