@@ -16,6 +16,7 @@ MetronicApp.controller('SidebarController', ['$rootScope', '$scope', '$state', '
         // if page=currentpage
     }
 
+    //get all departments
     queryString = '?action=getDepartments';
 
     httpRequest.sendRequest('get', queryString)
@@ -27,6 +28,17 @@ MetronicApp.controller('SidebarController', ['$rootScope', '$scope', '$state', '
         }
     })
 
+    //get all courses
+    queryString = '?action=getCourses';
+
+    httpRequest.sendRequest('get', queryString)
+    .then(function (data) {
+        if (data.status == 'ok') {
+            $timeout(function () {
+                $scope.courses = data.data;
+            }, 0);
+        }
+    })
 
     $scope.$on('setUser', function (event, args) {
         $timeout(function () {

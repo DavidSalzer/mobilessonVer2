@@ -115,6 +115,24 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
 
+        // courses
+        .state('course', {
+            url: "/course.html/:courseId",
+            templateUrl: "views/courses/course.html",
+            data: { pageTitle: 'קורסים', pageSubTitle: '' },
+            controller: "course",
+            resolve: {
+                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                        name: 'MetronicApp',
+                        files: [
+                             'js/controllers/course.js'
+                        ]
+                    });
+                } ]
+            }
+        })
+
 } ]);
 
 /* Init global settings and run the app */
