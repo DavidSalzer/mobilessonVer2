@@ -6,6 +6,7 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
     .success(function (data) {
         if (data.status == 'ok') {
             departments = data.data.statisticsByCourse;
+            $scope.courseName = data.data.general.courseName;
             initChart();
         }
     })
@@ -28,7 +29,7 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
 
         var started = [], ended = [], notStarted = []; //notStarted=employees-started
 
-        var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"]];
+        var ticks = [];
 
 
 
@@ -36,6 +37,7 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
             started.push([parseInt(department), departments[department].started]);
             ended.push([parseInt(department), departments[department].ended]);
             notStarted.push([parseInt(department), departments[department].employees]);
+            ticks.push([parseInt(department), departments[department].department.departmentName]);
         }
 
         var d3 = started;
@@ -51,7 +53,7 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
 
                 [
                 {
-                    label: "started",
+                    label: "התחילו",
                     data: d1,
                     lines: {
                         lineWidth: 1
@@ -59,14 +61,14 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
                     shadowSize: 0
                 }
                 , {
-                    label: "ended",
+                    label: "סיימו",
                     data: d2,
                     lines: {
                         lineWidth: 1
                     },
                     shadowSize: 0
                 }, {
-                    label: "ustarted",
+                    label: "לא התחילו",
                     data: d3,
                     lines: {
                         lineWidth: 1
@@ -89,7 +91,7 @@ MetronicApp.controller('course', ['$rootScope', '$scope', '$state', '$stateParam
                             borderColor: "#eee",
                             borderWidth: 1
                         },
-                        colors: ["#ff0000", "#00ff00", "#0000ff"],
+                        colors: ["#6ea416", "#4dc1e6", "#eb2621"],
                         xaxis: {
                             ticks: ticks
                         }

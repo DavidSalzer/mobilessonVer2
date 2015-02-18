@@ -24,26 +24,10 @@
             </a>
             <ul class="sub-menu">
                 <li data-ng-repeat="department in departments">
-                    <a data-ng-click="navigate('department',{departmentId:department.id})">
+                    <a data-ng-click="navigate('department',{departmentId:department.id})" href="javascript:;">
                         <span class="submenu-label">{{department.name}}</span>
                     </a>
                 </li>
-                    <!--<li>
-                    
-                        <a href="#/ui_bootstrap.html">
-                        <i class="icon-puzzle"></i> UI Bootstrap</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/file_upload.html">
-                        <i class="icon-paper-clip"></i> File Upload</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/ui_select.html">
-                        <i class="icon-check"></i> UI Select</span>
-                        </a>
-                    </li>-->
             </ul>
         </li>
         <li>
@@ -54,26 +38,10 @@
             </a>
             <ul class="sub-menu">
                 <li data-ng-repeat="course in courses">
-                    <a data-ng-click="navigate('course',{courseId:course.id})">
+                    <a data-ng-click="navigate('course',{courseId:course.id})" href="javascript:;">
                         <span class="submenu-label">{{course.name}}</span>
                     </a>
                 </li>
-                    <!--<li>
-                    
-                        <a href="#/ui_bootstrap.html">
-                        <i class="icon-puzzle"></i> UI Bootstrap</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/file_upload.html">
-                        <i class="icon-paper-clip"></i> File Upload</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/ui_select.html">
-                        <i class="icon-check"></i> UI Select</span>
-                        </a>
-                    </li>-->
             </ul>
         </li>
     </ul>

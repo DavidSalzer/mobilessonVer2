@@ -11,16 +11,15 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
     /*** Pie chart ***/
 
     //fake data
-    var data = [];
-    var series = Math.floor(Math.random() * 3) + 1;
-    series = 3;
-
-    for (var i = 0; i < series; i++) {
-        data[i] = {
-            label: "Series" + (i + 1),
-            data: Math.floor(Math.random() * 100) + 1
-        };
-    }
+    var data = [
+        { label: "השלימו",
+          data: 78},
+        {label: "בתהליך",
+          data: 11},
+        { label: "לא התחילו",
+          data: 11}
+    ];
+    
 
     // plot pie chart
     if ($('#pie_chart').size() !== 0) {
@@ -44,14 +43,15 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
             },
             legend: {
                 show: false
-            }
+            },
+            colors: [ "#6ea416", "#4dc1e6","#eb2621"]
         });
     }
 
 
-    //Flot Chart			
+    //Flot Chart- time entries			
     var init = { data: [[1183240800000, 184.36], [1185919200000, 31.85], [1188597600000, 280.74], [1191189600000, 381.15], [1193871600000, 82.38], [1196463600000, 483.94], [1199142000000, 85.44]],
-        label: "Entries Per Day"
+        label: " כניסות ליום "
     };
 
     var options = {
@@ -77,67 +77,20 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
         xaxis: { mode: "time" }
     };
 
-    plot = $.plot("#placeholder", [init], options);
-
-    $("<div id='tooltip'></div>").css({
-        position: "absolute",
-        display: "none",
-        border: "1px solid #222",
-        padding: "4px",
-        color: "#fff",
-        "border-radius": "4px",
-        "background-color": "rgb(0,0,0)",
-        opacity: 0.90
-    }).appendTo("body");
-
-    $("#placeholder").bind("plothover", function (event, pos, item) {
-
-        var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
-        $("#hoverdata").text(str);
-
-        if (item) {
-            var x = item.datapoint[0],
-				y = item.datapoint[1];
-
-            $("#tooltip").html("Visitor : " + y)
-				.css({ top: item.pageY + 5, left: item.pageX + 5 })
-				.fadeIn(200);
-        } else {
-            $("#tooltip").hide();
-        }
-    });
-
-    $("#placeholder").bind("plotclick", function (event, pos, item) {
-        if (item) {
-            $("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-            plot.highlight(item.series, item.datapoint);
-        }
-    });
-
-    var animate = function () {
-        $('#placeholder').animate({ tabIndex: 0 }, {
-            duration: 3000,
-            step: function (now, fx) {
-
-                var r = $.map(init.data, function (o) {
-                    return [[o[0], o[1] * fx.pos]];
-                });
-
-                plot.setData([{ data: r}]);
-                plot.draw();
-            }
-        });
-    }
-
-    animate();
+    $.plot("#placeholder", [init], options);
 
 
     //
 
-    departments=[
-        {"employees":40,"started":20,"ended":5},
-        {"employees":90,"started":80,"ended":78},
-        {"employees":20,"started":20,"ended":5}
+    var departments = [
+        { "employees": 5, "started": 5, "ended": 90 },
+        { "employees": 10, "started": 30, "ended": 304 },
+        { "employees": 9, "started": 20, "ended": 128 },
+        { "employees": 6, "started": 18, "ended": 95 },
+        { "employees": 15, "started": 18, "ended": 205 },
+        { "employees": 5, "started": 5, "ended": 90 },
+        { "employees": 60, "started": 150, "ended": 200 },
+        { "employees": 15, "started": 20, "ended": 170 }
     ]
 
     function initChart() {
@@ -155,19 +108,19 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
 
         var started = [], ended = [], notStarted = []; //notStarted=employees-started
 
-        var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"]];
+        var ticks = [[0, "תפעול"], [1, "מכירות"], [2, "הפצה"], [3, "לקוחות גדולים"], [4, "מלוחים סיירת"], [5, "מחלקת סחר"], [6, "בקרי שטח"], [7, "נציגות"]];
 
 
 
         for (var department in departments) {
-            started.push([parseInt(department), departments[department].started]);
             ended.push([parseInt(department), departments[department].ended]);
+            started.push([parseInt(department), departments[department].started]);
             notStarted.push([parseInt(department), departments[department].employees]);
         }
 
-        var d3 = started;
-        var d2 = ended;
-        var d1 = notStarted;
+        var d1 = ended;
+        var d2 = started;
+        var d3 = notStarted;
 
         var stack = 1,
                     bars = true,
@@ -178,7 +131,7 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
 
                 [
                 {
-                    label: "started",
+                    label: " סיימו ",
                     data: d1,
                     lines: {
                         lineWidth: 1
@@ -186,14 +139,14 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
                     shadowSize: 0
                 }
                 , {
-                    label: "ended",
+                    label: " התחילו ",
                     data: d2,
                     lines: {
                         lineWidth: 1
                     },
                     shadowSize: 0
                 }, {
-                    label: "ustarted",
+                    label: " לא התחילו ",
                     data: d3,
                     lines: {
                         lineWidth: 1
@@ -216,7 +169,7 @@ MetronicApp.controller('DashboardController', function ($rootScope, $scope, $htt
                             borderColor: "#eee",
                             borderWidth: 1
                         },
-                        colors: ["#ff0000", "#00ff00", "#0000ff"],
+                        colors: [ "#6ea416", "#4dc1e6","#eb2621"],
                         xaxis: {
                             ticks: ticks
                         }

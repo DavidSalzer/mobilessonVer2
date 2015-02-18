@@ -73,7 +73,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
         .state('dashboard', {
             url: "/dashboard.html",
             templateUrl: "views/dashboard.html",
-            data: { pageTitle: 'Dashboard', pageSubTitle: 'statistics & reports' },
+            data: { pageTitle: 'לוח בקרה', pageSubTitle: 'דו"חות וסטטיסטיקות' },
             controller: "DashboardController",
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -131,7 +131,6 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                     return $ocLazyLoad.load({
                         name: 'MetronicApp',
                         files: [
-                            '../../../assets/global/plugins/flot/jquery.flot.stack.min.js',
                              'js/controllers/course.js'
                         ]
                     });

@@ -1,4 +1,4 @@
-var domain = 'http://23.23.180.246/mobiEngine/v2.1_DEV/statisticsServer.php';
+var domain = 'http://23.23.180.246/mobiEngine/statisticsBranch/statisticsServer.php';
 
 //localhost
 var cmsOrigin = window.location.origin + '/';
