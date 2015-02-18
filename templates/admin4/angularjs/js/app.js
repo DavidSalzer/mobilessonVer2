@@ -131,12 +131,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                     return $ocLazyLoad.load({
                         name: 'MetronicApp',
                         files: [
-                            '../../../assets/global/plugins/flot/jquery.flot.min.js',
-                            '../../../assets/global/plugins/flot/jquery.flot.resize.min.js',
-                            '../../../assets/global/plugins/flot/jquery.flot.pie.min.js',
                             '../../../assets/global/plugins/flot/jquery.flot.stack.min.js',
-                            '../../../assets/global/plugins/flot/jquery.flot.crosshair.min.js',
-                             'js/scripts/charts-flotcharts.js',
                              'js/controllers/course.js'
                         ]
                     });
